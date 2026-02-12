@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>recortabl.es</title>
+  <title>recortabl.es — Juguetes recortables para imprimir y jugar</title>
+  <meta name="description" content="Descarga recortables de papel gratuitos: vehículos, edificios, robots, animales y más. Imprime, recorta, pega y juega.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

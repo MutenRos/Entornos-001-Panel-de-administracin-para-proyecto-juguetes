@@ -10,7 +10,8 @@
     </div>
 	<?php
 		$db = new SQLite3('recortables.db');
-		$peticion = "
+		// Mejora: prepared statement para evitar SQL injection
+		$stmt = $db->prepare("
 		SELECT 
 				productos.titulo AS tituloproducto,
 				categorias.titulo AS categoriaproducto,
@@ -19,8 +20,9 @@
 				FROM productos
 				LEFT JOIN categorias
 				ON productos.categoria = categorias.Identificador
-		 WHERE productos.Identificador = ".$_GET['id']."";
-		$resultado = $db->query($peticion);
+		 WHERE productos.Identificador = :id");
+		$stmt->bindValue(':id', (int)$_GET['id'], SQLITE3_INTEGER);
+		$resultado = $stmt->execute();
 		while ($fila = $resultado->fetchArray(SQLITE3_ASSOC)) {
 	?>
     <section class="product">
@@ -37,11 +39,11 @@
 
       <!-- Right: product info -->
       <div class="card">
-        <h1 class="p-title"><?= $fila['tituloproducto']?></h1>
+        <h1 class="p-title"><?= htmlspecialchars($fila['tituloproducto'], ENT_QUOTES, 'UTF-8') ?></h1>
         <p class="p-sub">Recortable listo para imprimir · PDF en alta calidad</p>
 
         <div class="meta-row">
-          <span class="pill">Categoría: <?= $fila['categoriaproducto']?></span>
+          <span class="pill">Categoría: <?= htmlspecialchars($fila['categoriaproducto'], ENT_QUOTES, 'UTF-8') ?></span>
           <span class="pill">Dificultad: Media</span>
           <span class="pill">Páginas: 4</span>
           <span class="pill"><span class="stars">★★★★★</span> (128)</span>
@@ -58,7 +60,7 @@
           <div class="card" style="padding:14px">
             <h3>Descripción</h3>
             <p>
-              <?= $fila['descripcionproducto']?>
+              <?= htmlspecialchars($fila['descripcionproducto'], ENT_QUOTES, 'UTF-8') ?>
             </p>
           </div>
 

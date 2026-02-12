@@ -85,14 +85,16 @@
             		$_POST['buscar'] = "";
             	}
 		   		$db = new SQLite3('recortables.db');
-		   		$peticion = "SELECT * FROM productos WHERE titulo LIKE '%".$_POST['buscar']."%'";
-		   		$resultado = $db->query($peticion);
+		   		// Mejora: prepared statement para evitar SQL injection
+		   		$stmt = $db->prepare("SELECT * FROM productos WHERE titulo LIKE :buscar");
+		   		$stmt->bindValue(':buscar', '%'.$_POST['buscar'].'%', SQLITE3_TEXT);
+		   		$resultado = $stmt->execute();
 		   		while ($fila = $resultado->fetchArray(SQLITE3_ASSOC)) {
 		   	?>
             <article>
               <img src="imgcategoria.png" alt="">
               <div class="card-body">
-                <p class="card-title"><?= $fila['titulo']?></p>
+                <p class="card-title"><?= htmlspecialchars($fila['titulo'], ENT_QUOTES, 'UTF-8') ?></p>
                 <p class="meta"><span class="stars">★★★★☆</span><span class="tag">Edificios</span></p>
                 <a class="download" href="producto.php?id=<?= $fila['Identificador']?>">Descargar PDF</a>
               </div>

@@ -77,8 +77,9 @@ nav{
 nav a{
   padding:8px 10px;
   border-radius:10px;
+  transition: background .2s ease, transform .15s ease;
 }
-nav a:hover{background:#f2f8ff}
+nav a:hover{background:#f2f8ff; transform:translateY(-1px)}
 
 .search{
   display:flex;align-items:center;gap:10px;
@@ -288,6 +289,11 @@ section > .title:first-child{ text-align:left; }
   font-weight:900;
   border:1px solid rgba(0,0,0,.08);
   box-shadow:0 14px 22px rgba(42,132,216,.22);
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+.download:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 28px rgba(42,132,216,.30);
 }
 .download:after{content:"›";font-size:18px;opacity:.95}
 
@@ -471,6 +477,12 @@ main article{
   display:flex;
   flex-direction:column;
   gap:10px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.grid article:hover,
+main article:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 32px rgba(11,42,69,.16);
 }
 .grid article img,
 main article img{

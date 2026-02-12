@@ -31,7 +31,7 @@
       		$resultado = $db->query($peticion);
       		while ($fila = $resultado->fetchArray(SQLITE3_ASSOC)) {
       	?>
-        <article><img src="<?= $fila['imagen'] ?>" alt=""><p><?= $fila['titulo'] ?></p></article>
+        <article><img src="<?= htmlspecialchars($fila['imagen'], ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($fila['titulo'], ENT_QUOTES, 'UTF-8') ?>"><p><?= htmlspecialchars($fila['titulo'], ENT_QUOTES, 'UTF-8') ?></p></article>
         <?php } ?>
       </div>
       <div class="subtle-rule"></div>
